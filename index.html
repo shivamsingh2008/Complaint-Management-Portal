@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResolveHub | Complaint Management Portal - CSE326 Project #21</title>
+    
+    <!-- Google Fonts for Modern Typography (Poppins & Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons (Pure CSS Icon Library) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- ==========================================================================
+         PURE CSS3 STYLESHEET (Aap is <style> ke andar ke code ko alag se 
+         'style.css' file mein bhi save kar sakte hain)
+         ========================================================================== -->
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & RESET (Color Palette & Basic Setup)
+           ========================================================================== */
+        :root {
+            --primary: #4f46e5;       /* Vibrant Indigo */
+            --primary-light: #818cf8;
+            --secondary: #ec4899;     /* Vibrant Pink */
+            --accent-purple: #8b5cf6; /* Purple */
+            --accent-cyan: #06b6d4;   /* Cyan */
+            --success: #10b981;       /* Emerald Green */
+            --warning: #f59e0b;       /* Amber Orange */
+            --danger: #ef4444;        /* Red */
+            --dark: #0f172a;          /* Dark Slate */
+            --text-main: #334155;     /* Slate Gray */
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;      /* Soft Background */
+            --white: #ffffff;
+            --gradient-hero: linear-gradient(135deg, #312e81 0%, #4f46e5 45%, #ec4899 100%);
+            --gradient-btn: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%);
+            --gradient-card-1: linear-gradient(135deg, #3b82f6 0%, #2dd4bf 100%);
+            --gradient-card-2: linear-gradient(135deg, #f59e0b 0%, #ec4899 100%);
+            --gradient-card-3: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            --gradient-card-4: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.06);
+            --shadow-md: 0 12px 28px rgba(79, 70, 229, 0.12);
+            --shadow-lg: 0 20px 40px rgba(79, 70, 229, 0.18);
+            --radius-md: 14px;
+            --radius-lg: 22px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .brand-logo {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Section Header Styling */
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px auto;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 6px 16px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .section-header h2 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, #1e1b4b, #4f46e5, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* ==========================================================================
+           2. TOP PROJECT ANNOUNCEMENT BAR
+           ========================================================================== */
+        .top-banner {
+            background: linear-gradient(90deg, #1e1b4b, #4338ca, #be185d);
+            color: var(--white);
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            text-align: center;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+        }
+
+        .top-banner span {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin: 0 6px;
+        }
+
+        /* ==========================================================================
+           3. STICKY NAVIGATION BAR
+           ========================================================================== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 76px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--gradient-btn);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.3rem;
+            box-shadow: 0 6px 15px rgba(236, 72, 153, 0.35);
+        }
+
+        .brand-logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            position: relative;
+            padding: 6px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            border-radius: 5px;
+            background: var(--gradient-btn);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--gradient-btn);
+            color: var(--white) !important;
+            padding: 10px 22px !important;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 6px 18px rgba(79, 70, 229, 0.3);
+        }
+
+        .nav-cta::after {
+            display: none;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(236, 72, 153, 0.45);
+        }
+
+        /* ==========================================================================
+           4. HERO SECTION & COLORFUL STATISTICS CARDS
+           ========================================================================== */
+        .hero {
+            background: var(--gradient-hero);
+            color: var(--white);
+            padding: 80px 0 110px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative Background Circles */
+        .hero::before, .hero::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            z-index: 0;
+        }
+        .hero::before {
+            width: 400px;
+            height: 400px;
+            top: -120px;
+            right: -100px;
+        }
+        .hero::after {
+            width: 300px;
+            height: 300px;
+            bottom: -100px;
+            left: -80px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 50px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(8px);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .hero-content h1 {
+            color: var(--white);
+            font-size: 3.1rem;
+            line-height: 1.18;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero-content h1 span {
+            background: linear-gradient(90deg, #fde047, #f9a8d4, #67e8f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.12rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 32px;
+            max-width: 560px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            background: #fdf2f8;
+            color: var(--secondary);
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(6px);
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.28);
+            transform: translateY(-3px);
+        }
+
+        /* Hero Right Visual Preview Card */
+        .hero-card {
+            background: rgba(255, 255, 255, 0.13);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .hero-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .dot.red { background: #f87171; }
+        .dot.yellow { background: #fbbf24; }
+        .dot.green { background: #34d399; }
+
+        .mini-ticket {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--dark);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .mini-ticket:hover {
+            transform: scale(1.02);
+        }
+
+        .mini-ticket-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .mini-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.1rem;
+        }
+
+        .mini-ticket h4 {
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+        .mini-ticket p {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .pill {
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .pill-green { background: #d1fae5; color: #047857; }
+        .pill-orange { background: #fef3c7; color: #b45309; }
+        .pill-blue { background: #dbeafe; color: #1d4ed8; }
+
+        /* Floating Statistics Cards Row */
+        .stats-section {
+            margin-top: -55px;
+            position: relative;
+            z-index: 10;
+            margin-bottom: 80px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 26px 24px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            border-bottom: 5px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card.card-1 { border-bottom-color: #3b82f6; }
+        .stat-card.card-2 { border-bottom-color: #10b981; }
+        .stat-card.card-3 { border-bottom-color: #f59e0b; }
+        .stat-card.card-4 { border-bottom-color: #ec4899; }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .card-1 .stat-icon { background: var(--gradient-card-1); }
+        .card-2 .stat-icon { background: var(--gradient-card-4); }
+        .card-3 .stat-icon { background: var(--gradient-card-2); }
+        .card-4 .stat-icon { background: var(--gradient-card-3); }
+
+        .stat-info h3 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+
+        .stat-info p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           5. COMPLAINT CATEGORIES GRID SECTION
+           ========================================================================== */
+        .categories-section {
+            padding: 40px 0 90px 0;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .category-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 32px 28px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e2e8f0;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--gradient-btn);
+            transition: height 0.3s ease;
+        }
+
+        .category-card.cat-hostel::before { background: linear-gradient(90deg, #f97316, #ec4899); }
+        .category-card.cat-academic::before { background: linear-gradient(90deg, #4f46e5, #06b6d4); }
+        .category-card.cat-wifi::before { background: linear-gradient(90deg, #06b6d4, #10b981); }
+        .category-card.cat-infra::before { background: linear-gradient(90deg, #eab308, #f97316); }
+        .category-card.cat-library::before { background: linear-gradient(90deg, #8b5cf6, #ec4899); }
+        .category-card.cat-medical::before { background: linear-gradient(90deg, #ef4444, #f97316); }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .cat-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .cat-hostel .cat-icon { background: linear-gradient(135deg, #f97316, #ec4899); }
+        .cat-academic .cat-icon { background: linear-gradient(135deg, #4f46e5, #06b6d4); }
+        .cat-wifi .cat-icon { background: linear-gradient(135deg, #06b6d4, #10b981); }
+        .cat-infra .cat-icon { background: linear-gradient(135deg, #eab308, #f97316); }
+        .cat-library .cat-icon { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+        .cat-medical .cat-icon { background: linear-gradient(135deg, #ef4444, #f97316); }
+
+        .category-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .category-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .cat-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px dashed #e2e8f0;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .cat-badge {
+            background: #f1f5f9;
+            color: var(--dark);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .cat-link {
+            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cat-link:hover {
+            color: var(--secondary);
+            gap: 10px;
+        }
+
+        /* ==========================================================================
+           6. LODGE A COMPLAINT FORM SECTION
+           ========================================================================== */
+        .form-section {
+            padding: 90px 0;
+            background: linear-gradient(180deg, #eef2ff 0%, #fdf2f8 100%);
+        }
+
+        .form-wrapper {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Left Side Info Panel */
+        .form-sidebar {
+            background: var(--gradient-hero);
+            color: var(--white);
+            padding: 48px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .form-sidebar h3 {
+            color: var(--white);
+            font-size: 1.9rem;
+            margin-bottom: 16px;
+        }
+
+        .form-sidebar p {
+            color: rgba(255, 255, 255, 0.88);
+            margin-bottom: 32px;
+            font-size: 0.98rem;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .feature-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .feature-item h4 {
+            color: var(--white);
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+
+        .feature-item p {
+            margin: 0;
+            font-size: 0.86rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .helpline-box {
+            margin-top: 40px;
+            background: rgba(15, 23, 42, 0.35);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .helpline-box span {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fde047;
+            font-weight: 700;
+        }
+
+        .helpline-box h4 {
+            color: var(--white);
+            font-size: 1.25rem;
+            margin-top: 4px;
+        }
+
+        /* Right Side HTML Form */
+        .complaint-form-box {
+            padding: 48px 44px;
+        }
+
+        .complaint-form-box h3 {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+
+        .complaint-form-box > p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 28px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .form-group label span {
+            color: var(--danger);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 13px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--dark);
+            background: #f8fafc;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        /* Priority Level Custom Radio Pills */
+        .priority-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .priority-label {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .priority-label input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .priority-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 11px 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+            background: #f8fafc;
+        }
+
+        .priority-label input:checked + .priority-box.low {
+            border-color: #10b981;
+            background: #ecfdf5;
+            color: #047857;
+        }
+        .priority-label input:checked + .priority-box.medium {
+            border-color: #3b82f6;
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+        .priority-label input:checked + .priority-box.high {
+            border-color: #f59e0b;
+            background: #fffbeb;
+            color: #b45309;
+        }
+        .priority-label input:checked + .priority-box.urgent {
+            border-color: #ef4444;
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        /* File Upload Box */
+        .file-upload-wrapper {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            background: #f8fafc;
+            transition: border-color 0.3s ease;
+        }
+
+        .file-upload-wrapper:hover {
+            border-color: var(--primary);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--gradient-btn);
+            color: var(--white);
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.35);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(236, 72, 153, 0.45);
+        }
+
+        /* ==========================================================================
+           7. TRACK COMPLAINT STATUS SECTION (CSS-Only Visual Stepper)
+           ========================================================================== */
+        .track-section {
+            padding: 90px 0;
+        }
+
+        .track-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 44px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid #e2e8f0;
+        }
+
+        .search-bar-box {
+            display: flex;
+            gap: 14px;
+            max-width: 700px;
+            margin: 0 auto 45px auto;
+        }
+
+        .search-bar-box input {
+            flex: 1;
+            padding: 16px 22px;
+            border: 2px solid #cbd5e1;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-bar-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+        }
+
+        .search-bar-box button {
+            background: var(--gradient-btn);
+            color: var(--white);
+            border: none;
+            padding: 0 34px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .search-bar-box button:hover {
+            transform: scale(1.04);
+        }
+
+        /* Sample Live Ticket Preview Header */
+        .ticket-status-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8fafc;
+            padding: 20px 28px;
+            border-radius: 14px;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .ticket-status-header div span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .ticket-status-header div h4 {
+            font-size: 1.15rem;
+            margin-top: 2px;
+        }
+
+        /* 4-Step Visual Progress Tracker */
+        .progress-stepper {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            position: relative;
+        }
+
+        .step-item {
+            text-align: center;
+            position: relative;
+            padding: 20px 14px;
+            border-radius: 16px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            transition: transform 0.3s ease;
+        }
+
+        .step-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-item.completed {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+
+        .step-item.active {
+            border-color: #4f46e5;
+            background: #eef2ff;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.15);
+        }
+
+        .step-circle {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            margin: 0 auto 14px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: #cbd5e1;
+            color: var(--white);
+        }
+
+        .step-item.completed .step-circle {
+            background: var(--success);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.35);
+        }
+
+        .step-item.active .step-circle {
+            background: var(--gradient-btn);
+            box-shadow: 0 6px 15px rgba(236, 72, 153, 0.4);
+        }
+
+        .step-item h4 {
+            font-size: 1.02rem;
+            margin-bottom: 6px;
+        }
+
+        .step-item p {
+            font-size: 0.83rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           8. RECENT PUBLIC COMPLAINTS TABLE SECTION
+           ========================================================================== */
+        .table-section {
+            padding: 30px 0 90px 0;
+        }
+
+        .table-container {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        thead {
+            background: linear-gradient(90deg, #1e1b4b, #4338ca);
+            color: var(--white);
+        }
+
+        th {
+            padding: 18px 22px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 18px 22px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.94rem;
+        }
+
+        tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .ticket-id {
+            font-weight: 700;
+            color: var(--primary);
+            font-family: monospace;
+            font-size: 1rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .status-resolved {
+            background: #d1fae5;
+            color: #047857;
+        }
+
+        .status-progress {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .status-pending {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        /* ==========================================================================
+           9. PURE CSS FAQ ACCORDION (<details> & <summary>)
+           ========================================================================== */
+        .faq-section {
+            padding: 80px 0;
+            background: #f1f5f9;
+        }
+
+        .faq-wrapper {
+            max-width: 850px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        details.faq-item {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 20px 26px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        details.faq-item[open] {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        summary.faq-question {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+        }
+
+        summary.faq-question::-webkit-details-marker {
+            display: none;
+        }
+
+        summary.faq-question::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--primary);
+            background: #eef2ff;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            transition: transform 0.3s ease;
+        }
+
+        details.faq-item[open] summary.faq-question::after {
+            transform: rotate(180deg);
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .faq-answer {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid #f1f5f9;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+           10. PROJECT TEAM SECTION (Roll Numbers: 29, 30, 31)
+           ========================================================================== */
+        .team-section {
+            padding: 90px 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .team-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 36px 26px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border-top: 6px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .team-card:nth-child(2) {
+            border-top-color: var(--secondary);
+        }
+
+        .team-card:nth-child(3) {
+            border-top-color: var(--accent-cyan);
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .avatar-circle {
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            margin: 0 auto 18px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--white);
+            background: var(--gradient-btn);
+            box-shadow: 0 10px 22px rgba(79, 70, 229, 0.3);
+        }
+
+        .team-card:nth-child(2) .avatar-circle {
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+        }
+
+        .team-card:nth-child(3) .avatar-circle {
+            background: linear-gradient(135deg, #06b6d4, #3b82f6);
+        }
+
+        .roll-badge {
+            display: inline-block;
+            background: #eef2ff;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.82rem;
+            padding: 5px 14px;
+            border-radius: 30px;
+            margin-bottom: 10px;
+        }
+
+        .team-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 6px;
+        }
+
+        .team-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 18px;
+        }
+
+        /* ==========================================================================
+           11. FOOTER SECTION
+           ========================================================================== */
+        .footer {
+            background: var(--dark);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 70px 0 30px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-brand h3 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-brand p {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-size: 1.1rem;
+            margin-bottom: 18px;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .project-meta-box {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .project-meta-box p {
+            font-size: 0.88rem;
+            margin-bottom: 8px;
+        }
+
+        .project-meta-box strong {
+            color: #fde047;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.88rem;
+        }
+
+        /* ==========================================================================
+           12. RESPONSIVE DESIGN (Media Queries for Mobile & Tablet)
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .hero-grid,
+            .form-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid,
+            .categories-grid,
+            .progress-stepper,
+            .team-grid,
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .stats-grid,
+            .categories-grid,
+            .progress-stepper,
+            .team-grid,
+            .footer-grid,
+            .form-grid,
+            .priority-options {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .search-bar-box {
+                flex-direction: column;
+            }
+            .search-bar-box button {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== 1. TOP PROJECT BANNER ==================== -->
+    <div class="top-banner">
+        🎓 <strong>CSE326 Internet Programming Laboratory</strong> | <span>Project #21: Complaint Management Portal</span> | Group Roll Nos: <span>29, 30, 31</span>
+    </div>
+
+    <!-- ==================== 2. NAVIGATION BAR ==================== -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="brand-logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                Resolve<span>Hub</span>
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#lodge-complaint">Lodge Complaint</a></li>
+                    <li><a href="#track-status">Track Status</a></li>
+                    <li><a href="#recent-complaints">Public Log</a></li>
+                    <li><a href="#team">Project Team</a></li>
+                    <li><a href="#lodge-complaint" class="nav-cta"><i class="fa-solid fa-plus-circle"></i> New Ticket</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==================== 3. HERO SECTION ==================== -->
+    <section id="home" class="hero">
+        <div class="container hero-grid">
+            <!-- Left Column: Text & CTAs -->
+            <div class="hero-content">
+                <div class="hero-tag">
+                    <i class="fa-solid fa-bolt"></i> Fast, Transparent & Paperless Redressal
+                </div>
+                <h1>Smart Campus <span>Complaint Management</span> Portal</h1>
+                <p>
+                    Raise your voice effortlessly! Whether it's Hostel Maintenance, Wi-Fi connectivity, Academic queries, or Campus Infrastructure — register your grievance in 60 seconds and track real-time resolution.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#lodge-complaint" class="btn btn-white">
+                        <i class="fa-solid fa-paper-plane"></i> File a Complaint Now
+                    </a>
+                    <a href="#track-status" class="btn btn-glass">
+                        <i class="fa-solid fa-magnifying-glass"></i> Track Ticket Status
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: Live Ticket Activity Preview Card -->
+            <div class="hero-card">
+                <div class="hero-card-header">
+                    <div class="window-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <span style="font-size: 0.85rem; font-weight: 600;">Live Redressal Feed</span>
+                </div>
+
+                <!-- Sample Card 1 -->
+                <div class="mini-ticket">
+                    <div class="mini-ticket-left">
+                        <div class="mini-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                            <i class="fa-solid fa-wifi"></i>
+                        </div>
+                        <div>
+                            <h4>Hostel BH-4 Wi-Fi Router Fixed</h4>
+                            <p>Ticket #CMP-2026-891 • IT Helpdesk</p>
+                        </div>
+                    </div>
+                    <span class="pill pill-green">Resolved</span>
+                </div>
+
+                <!-- Sample Card 2 -->
+                <div class="mini-ticket">
+                    <div class="mini-ticket-left">
+                        <div class="mini-icon" style="background: linear-gradient(135deg, #f59e0b, #ea580c);">
+                            <i class="fa-solid fa-faucet-drip"></i>
+                        </div>
+                        <div>
+                            <h4>Water Cooler Filter Replacement</h4>
+                            <p>Ticket #CMP-2026-894 • Block-34 Floor 2</p>
+                        </div>
+                    </div>
+                    <span class="pill pill-orange">In Progress</span>
+                </div>
+
+                <!-- Sample Card 3 -->
+                <div class="mini-ticket" style="margin-bottom: 0;">
+                    <div class="mini-ticket-left">
+                        <div class="mini-icon" style="background: linear-gradient(135deg, #3b82f6, #6366f1);">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <div>
+                            <h4>Library Late Fine Waiver Request</h4>
+                            <p>Ticket #CMP-2026-899 • Central Library</p>
+                        </div>
+                    </div>
+                    <span class="pill pill-blue">Assigned</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. COLORFUL STATISTICS CARDS ==================== -->
+    <section class="stats-section">
+        <div class="container stats-grid">
+            <div class="stat-card card-1">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-file-signature"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>1,480+</h3>
+                    <p>Total Complaints Logged</p>
+                </div>
+            </div>
+
+            <div class="stat-card card-2">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>1,395</h3>
+                    <p>Successfully Resolved</p>
+                </div>
+            </div>
+
+            <div class="stat-card card-3">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-spinner"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>85</h3>
+                    <p>Currently In Progress</p>
+                </div>
+            </div>
+
+            <div class="stat-card card-4">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>&lt; 18 Hrs</h3>
+                    <p>Avg. Resolution Time</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 5. COMPLAINT CATEGORIES SECTION ==================== -->
+    <section id="categories" class="categories-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Grievance Departments</span>
+                <h2>Browse Complaint Categories</h2>
+                <p>Select your respective department below to route your complaint directly to the concerned nodal officer for immediate action.</p>
+            </div>
+
+            <div class="categories-grid">
+                <!-- Category 1 -->
+                <div class="category-card cat-hostel">
+                    <div class="cat-icon">
+                        <i class="fa-solid fa-bed"></i>
+                    </div>
+                    <h3>Hostel & Mess Services</h3>
+                    <p>Room electricity, plumbing, furniture repair, room cleaning, mess food quality, and hygiene issues.</p>
+                    <div class="cat-footer">
+                        <span class="cat-badge">SLA: 12 Hours</span>
+                        <a href="#lodge-complaint" class="cat-link">Report Issue <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="category-card cat-academic">
+                    <div class="cat-icon">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3>Academics & Examination</h3>
+                    <p>Attendance discrepancy, timetable clash, grade sheet correction, lab equipment, and faculty feedback.</p>
+                    <div class="cat-footer">
+                        <span class="cat-badge">SLA: 24 Hours</span>
+                        <a href="#lodge-complaint" class="cat-link">Report Issue <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="category-card cat-wifi">
+                    <div class="cat-icon">
+                        <i class="fa-solid fa-wifi"></i>
+                    </div>
+                    <h3>Wi-Fi & IT Support</h3>
+                    <p>Campus Wi-Fi dead zones, LMS portal login issues, smart classroom projector faults, and LAN ports.</p>
+                    <div class="cat-footer">
+                        <span class="cat-badge">SLA: 6 Hours</span>
+                        <a href="#lodge-complaint" class="cat-link">Report Issue <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="category-card cat-infra">
+                    <div class="cat-icon">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <h3>Infrastructure & Civil</h3>
+                    <p>Classroom AC/Fans, water coolers, washroom sanitation, broken benches, and lift maintenance.</p>
+                    <div class="cat-footer">
+                        <span class="cat-badge">SLA: 18 Hours</span>
+                        <a href="#lodge-complaint" class="cat-link">Report Issue <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Category 5 -->
+                <div class="category-card cat-library">
+                    <div class="cat-icon">
+                        <i class="fa-solid fa-book-bookmark"></i>
+                    </div>
+                    <h3>Central Library & Labs</h3>
+                    <p>Book availability, e-resource access, reading hall AC/lighting, and computer lab software issues.</p>
+                    <div class="cat-footer">
+                        <span class="cat-badge">SLA: 24 Hours</span>
+                        <a href="#lodge-complaint" class="cat-link">Report Issue <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Category 6 -->
+                <div class="category-card cat-medical">
+                    <div class="cat-icon">
+                        <i class="fa-solid fa-kit-medical"></i>
+                    </div>
+                    <h3>Medical, Sports & Security</h3>
+                    <p>Campus hospital support, ambulance service, lost & found items, ID card, and campus safety.</p>
+                    <div class="cat-footer">
+                        <span class="cat-badge">SLA: 2 Hours (Urgent)</span>
+                        <a href="#lodge-complaint" class="cat-link">Report Issue <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. LODGE A COMPLAINT HTML FORM ==================== -->
+    <section id="lodge-complaint" class="form-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Online Grievance Form</span>
+                <h2>Lodge a New Complaint</h2>
+                <p>Fill out the details below accurately. Once submitted, you will receive a unique Ticket ID for status tracking.</p>
+            </div>
+
+            <div class="form-wrapper">
+                <!-- Left Sidebar Info -->
+                <div class="form-sidebar">
+                    <div>
+                        <h3>Why Use ResolveHub?</h3>
+                        <p>Our automated routing system ensures your complaint reaches the right authority without paperwork or delays.</p>
+
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                                <div>
+                                    <h4>100% Privacy & Protection</h4>
+                                    <p>Your personal details remain confidential with the grievance cell.</p>
+                                </div>
+                            </div>
+
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fa-solid fa-bell"></i></div>
+                                <div>
+                                    <h4>Instant Email Alerts</h4>
+                                    <p>Get notified at every stage from assignment to final resolution.</p>
+                                </div>
+                            </div>
+
+                            <div class="feature-item">
+                                <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+                                <div>
+                                    <h4>Auto-Escalation Policy</h4>
+                                    <p>Unresolved tickets automatically escalate to the Dean's office after 48 hours.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="helpline-box">
+                        <span>24x7 Emergency Campus Helpline</span>
+                        <h4><i class="fa-solid fa-phone-volume"></i> +91 1800-326-0021</h4>
+                    </div>
+                </div>
+
+                <!-- Right Side Pure HTML Form -->
+                <div class="complaint-form-box">
+                    <h3>Grievance Registration Form</h3>
+                    <p>Fields marked with <span style="color: var(--danger);">*</span> are mandatory.</p>
+
+                    <form action="#track-status" method="get">
+                        <div class="form-grid">
+                            <!-- Full Name -->
+                            <div class="form-group">
+                                <label for="student-name">Student Full Name <span>*</span></label>
+                                <input type="text" id="student-name" name="student_name" class="form-control" placeholder="e.g. Rahul Sharma" required>
+                            </div>
+
+                            <!-- Registration / Roll Number -->
+                            <div class="form-group">
+                                <label for="reg-no">Registration / Roll No. <span>*</span></label>
+                                <input type="text" id="reg-no" name="reg_no" class="form-control" placeholder="e.g. 12304567 / Roll 29" required>
+                            </div>
+
+                            <!-- Email ID -->
+                            <div class="form-group">
+                                <label for="email">University Email ID <span>*</span></label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="student@university.edu.in" required>
+                            </div>
+
+                            <!-- Phone Number -->
+                            <div class="form-group">
+                                <label for="phone">Mobile Number <span>*</span></label>
+                                <input type="tel" id="phone" name="phone" class="form-control" placeholder="+91 98765 43210" required>
+                            </div>
+
+                            <!-- Category Dropdown -->
+                            <div class="form-group">
+                                <label for="category">Complaint Category <span>*</span></label>
+                                <select id="category" name="category" class="form-control" required>
+                                    <option value="">-- Select Category --</option>
+                                    <option value="hostel">Hostel & Mess Services</option>
+                                    <option value="academic">Academics & Examination</option>
+                                    <option value="wifi">Wi-Fi & IT Support</option>
+                                    <option value="infra">Infrastructure & Maintenance</option>
+                                    <option value="library">Central Library & Labs</option>
+                                    <option value="medical">Medical, Sports & Security</option>
+                                </select>
+                            </div>
+
+                            <!-- Building / Hostel Block -->
+                            <div class="form-group">
+                                <label for="location">Hostel Block / Academic Building <span>*</span></label>
+                                <input type="text" id="location" name="location" class="form-control" placeholder="e.g. Boys Hostel BH-3, Room 402" required>
+                            </div>
+
+                            <!-- Priority Level Radio Buttons -->
+                            <div class="form-group full-width">
+                                <label>Select Priority Level <span>*</span></label>
+                                <div class="priority-options">
+                                    <label class="priority-label">
+                                        <input type="radio" name="priority" value="Low">
+                                        <span class="priority-box low"><i class="fa-solid fa-circle-info"></i> Low</span>
+                                    </label>
+                                    <label class="priority-label">
+                                        <input type="radio" name="priority" value="Medium" checked>
+                                        <span class="priority-box medium"><i class="fa-solid fa-circle-dot"></i> Medium</span>
+                                    </label>
+                                    <label class="priority-label">
+                                        <input type="radio" name="priority" value="High">
+                                        <span class="priority-box high"><i class="fa-solid fa-triangle-exclamation"></i> High</span>
+                                    </label>
+                                    <label class="priority-label">
+                                        <input type="radio" name="priority" value="Urgent">
+                                        <span class="priority-box urgent"><i class="fa-solid fa-fire"></i> Urgent</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Complaint Subject -->
+                            <div class="form-group full-width">
+                                <label for="subject">Complaint Subject / Title <span>*</span></label>
+                                <input type="text" id="subject" name="subject" class="form-control" placeholder="Brief summary of your issue (e.g. LAN port not working in room)" required>
+                            </div>
+
+                            <!-- Detailed Description -->
+                            <div class="form-group full-width">
+                                <label for="description">Detailed Description <span>*</span></label>
+                                <textarea id="description" name="description" class="form-control" placeholder="Describe the exact problem, since when you are facing it, and any specific details..." required></textarea>
+                            </div>
+
+                            <!-- Supporting Image / Document Upload -->
+                            <div class="form-group full-width">
+                                <label for="attachment">Upload Photo / Supporting Proof (Optional)</label>
+                                <div class="file-upload-wrapper">
+                                    <input type="file" id="attachment" name="attachment" accept="image/*,.pdf">
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-group full-width" style="margin-bottom: 0;">
+                                <button type="submit" class="btn-submit">
+                                    <i class="fa-solid fa-paper-plane"></i> Submit Complaint Ticket
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 7. TRACK COMPLAINT STATUS SECTION ==================== -->
+    <section id="track-status" class="track-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Real-Time Tracker</span>
+                <h2>Track Your Complaint Status</h2>
+                <p>Enter your Complaint Ticket Number below to view live progress and assigned nodal officer details.</p>
+            </div>
+
+            <div class="track-card">
+                <!-- Search Bar -->
+                <form action="#track-status" method="get" class="search-bar-box">
+                    <input type="text" name="ticket_id" placeholder="Enter Ticket ID (e.g., CMP-2026-894)" value="CMP-2026-894" required>
+                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i> Track Now</button>
+                </form>
+
+                <!-- Sample Ticket Summary Banner -->
+                <div class="ticket-status-header">
+                    <div>
+                        <span>Tracking Ticket ID</span>
+                        <h4 style="color: var(--primary);">#CMP-2026-894</h4>
+                    </div>
+                    <div>
+                        <span>Category & Location</span>
+                        <h4>Infrastructure • Block 34, 2nd Floor</h4>
+                    </div>
+                    <div>
+                        <span>Assigned Officer</span>
+                        <h4>Er. Vikramaditya Singh (Civil Dept)</h4>
+                    </div>
+                    <div>
+                        <span>Current Status</span>
+                        <span class="status-badge status-progress"><i class="fa-solid fa-gears"></i> Technician Assigned</span>
+                    </div>
+                </div>
+
+                <!-- 4-Step Visual Progress Tracker -->
+                <div class="progress-stepper">
+                    <div class="step-item completed">
+                        <div class="step-circle"><i class="fa-solid fa-check"></i></div>
+                        <h4>1. Ticket Submitted</h4>
+                        <p>Logged on 09 Nov, 10:15 AM by Roll No. 29</p>
+                    </div>
+
+                    <div class="step-item completed">
+                        <div class="step-circle"><i class="fa-solid fa-check"></i></div>
+                        <h4>2. Assigned to Dept</h4>
+                        <p>Forwarded to Campus Maintenance Cell</p>
+                    </div>
+
+                    <div class="step-item active">
+                        <div class="step-circle"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                        <h4>3. Action In Progress</h4>
+                        <p>Technician dispatched for filter replacement</p>
+                    </div>
+
+                    <div class="step-item">
+                        <div class="step-circle"><i class="fa-solid fa-flag-checkered"></i></div>
+                        <h4>4. Issue Resolved</h4>
+                        <p>Awaiting student confirmation & closure</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 8. RECENT PUBLIC COMPLAINTS TABLE ==================== -->
+    <section id="recent-complaints" class="table-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Transparency Log</span>
+                <h2>Recent Campus Complaints</h2>
+                <p>A public overview of recently submitted campus grievances and their current resolution state.</p>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>Category</th>
+                            <th>Issue Summary</th>
+                            <th>Location / Block</th>
+                            <th>Date Logged</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="ticket-id">#CMP-2026-902</td>
+                            <td><strong>Wi-Fi & IT</strong></td>
+                            <td>High packet loss in Boys Hostel 4 Wing-B</td>
+                            <td>Hostel BH-4</td>
+                            <td>10 Nov 2026</td>
+                            <td><span class="status-badge status-resolved"><i class="fa-solid fa-check-circle"></i> Resolved</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ticket-id">#CMP-2026-899</td>
+                            <td><strong>Academics</strong></td>
+                            <td>CSE326 Practical group lab seating allocation</td>
+                            <td>Block 34 - Lab 401</td>
+                            <td>10 Nov 2026</td>
+                            <td><span class="status-badge status-progress"><i class="fa-solid fa-clock"></i> In Progress</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ticket-id">#CMP-2026-894</td>
+                            <td><strong>Infrastructure</strong></td>
+                            <td>RO Water Cooler cooling unit repair required</td>
+                            <td>Block 34 - Floor 2</td>
+                            <td>09 Nov 2026</td>
+                            <td><span class="status-badge status-progress"><i class="fa-solid fa-clock"></i> In Progress</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ticket-id">#CMP-2026-890</td>
+                            <td><strong>Hostel & Mess</strong></td>
+                            <td>Study table lamp socket replacement</td>
+                            <td>Girls Hostel GH-2</td>
+                            <td>09 Nov 2026</td>
+                            <td><span class="status-badge status-resolved"><i class="fa-solid fa-check-circle"></i> Resolved</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ticket-id">#CMP-2026-885</td>
+                            <td><strong>Central Library</strong></td>
+                            <td>Request for additional copies of Web Development books</td>
+                            <td>Central Library</td>
+                            <td>08 Nov 2026</td>
+                            <td><span class="status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> Pending Review</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 9. PURE CSS FAQ ACCORDION ==================== -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Got Questions?</span>
+                <h2>Frequently Asked Questions</h2>
+                <p>Quick answers to common questions regarding how the campus grievance portal works.</p>
+            </div>
+
+            <div class="faq-wrapper">
+                <details class="faq-item" open>
+                    <summary class="faq-question">How long does it take to resolve a registered complaint?</summary>
+                    <div class="faq-answer">
+                        Urgent issues (such as electricity, water, or medical emergencies) are addressed within 2 to 6 hours. Standard maintenance and academic queries are resolved within 18 to 24 working hours.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">Can I lodge an anonymous complaint on ResolveHub?</summary>
+                    <div class="faq-answer">
+                        While your Registration Number is required to verify that you are a bonafide student, your identity is kept strictly confidential from third parties and is only visible to the Chief Grievance Officer.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">What happens if my complaint is not resolved on time?</summary>
+                    <div class="faq-answer">
+                        Our portal features a 48-hour Auto-Escalation matrix. If a ticket remains unresolved past its SLA deadline, it is automatically escalated to the Head of Department (HOD) and Dean Student Welfare.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 10. PROJECT TEAM SECTION (Roll Nos: 29, 30, 31) ==================== -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">CSE326 Project Group #21</span>
+                <h2>Developed By Group Members</h2>
+                <p>This front-end web application is designed and developed using pure HTML5 & CSS3 for the CSE326 course evaluation.</p>
+            </div>
+
+            <div class="team-grid">
+                <!-- Member 1: Roll No 29 -->
+                <div class="team-card">
+                    <div class="avatar-circle">29</div>
+                    <span class="roll-badge">Roll Number: 29</span>
+                    <h3>Group Member 1</h3>
+                    <p>UI Layout, Navigation Bar, Hero Section & Responsive CSS Grid Styling</p>
+                    <span class="pill pill-blue">HTML5 & CSS3 Lead</span>
+                </div>
+
+                <!-- Member 2: Roll No 30 -->
+                <div class="team-card">
+                    <div class="avatar-circle">30</div>
+                    <span class="roll-badge">Roll Number: 30</span>
+                    <h3>Group Member 2</h3>
+                    <p>Complaint Registration Form, Input Validation & Category Cards Design</p>
+                    <span class="pill pill-orange">Forms & UI Designer</span>
+                </div>
+
+                <!-- Member 3: Roll No 31 -->
+                <div class="team-card">
+                    <div class="avatar-circle">31</div>
+                    <span class="roll-badge">Roll Number: 31</span>
+                    <h3>Group Member 3</h3>
+                    <p>Status Progress Tracker, Public Log Table, FAQ Accordion & Footer</p>
+                    <span class="pill pill-green">Components & Testing</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 11. FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3><i class="fa-solid fa-headset" style="color: var(--secondary);"></i> ResolveHub</h3>
+                    <p>A unified, transparent, and student-friendly Complaint Management Portal built to make campus life smoother and problem-free.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home Dashboard</a></li>
+                        <li><a href="#categories">Complaint Categories</a></li>
+                        <li><a href="#lodge-complaint">Lodge a Grievance</a></li>
+                        <li><a href="#track-status">Track Ticket Status</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Departments</h4>
+                    <ul>
+                        <li><a href="#lodge-complaint">Hostel & Mess Cell</a></li>
+                        <li><a href="#lodge-complaint">IT & Wi-Fi Helpdesk</a></li>
+                        <li><a href="#lodge-complaint">Examination Wing</a></li>
+                        <li><a href="#lodge-complaint">Estate & Civil Office</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Project Information</h4>
+                    <div class="project-meta-box">
+                        <p><strong>Course Code:</strong> CSE326</p>
+                        <p><strong>Project S.No:</strong> 21</p>
+                        <p><strong>Title:</strong> Complaint Management Portal</p>
+                        <p><strong>Roll Numbers:</strong> 29, 30, 31</p>
+                        <p><strong>Tech Stack:</strong> Pure HTML5 & CSS3</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 ResolveHub — Complaint Management Portal | Designed for CSE326 Project #21 (Roll Nos: 29, 30, 31).</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
